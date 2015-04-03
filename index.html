@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Random Adj/Noun Generator</title>
+        <style>
+            body {
+                font-family: "Helvetica", "Arial", sans-serif;
+                background: #333;
+            }
+            
+            #content {
+                margin: auto;
+                max-width: 500px;
+                
+                background: #FF8800;
+                padding: 10px;
+                border-radius: 10px;
+            }
+            #content > div {
+                margin-bottom: 20px;
+            }
+            
+            #generator > span {
+                font-weight: bold;
+                font-size: 25px;
+            }
+            #sep { max-width: 5px; }
+            #generator > button {
+                float: right;
+                height: 35px;
+                font-size: 13px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <div id="generator">
+                <span id="adj"></span><span id="sep">-</span><span id="noun"></span>
+                <button id="again" onclick="generate();">Generate again</button>
+            </div>
+            
+            <div id="info">
+                Adjectives: <span id="n-adjectives"></span><br/>
+                Nouns: <span id="n-nouns"></span><br/>
+                Possible combinations: <span id="n-combinations"></span>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+            var doc = {
+                adjective: $('#adj'),
+                sep: $('#sep'),
+                noun: $('#noun'),
+                
+                again: $('#again'),
+                
+                nAdjectives: $('#n-adjectives'),
+                nNouns: $('#n-nouns'),
+                nCombinations: $('#n-combinations')
+            };
+            var words = {
+                adjectives: [],
+                nouns: []
+            };
+        
+            function generate() {
+                "use strict";
+                if (words.adjectives.length && words.nouns.length) {
+                    var adjective = words.adjectives[Math.floor(Math.random() * words.adjectives.length)];
+                    var noun = words.nouns[ Math.floor(Math.random() * words.nouns.length)];
+                    
+                    doc.adjective.text(adjective);
+                    doc.noun.text(noun);
+                }
+            }
+            
+            jQuery.get('words/adjectives.txt', function (data) {
+                words.adjectives = data.split('\n');
+                doc.nAdjectives.text(words.adjectives.length);
+                if (words.nouns.length) {
+                    doc.nCombinations.text(words.adjectives.length * words.nouns.length);
+                    generate();
+                }
+            }, 'text');
+            
+            jQuery.get('words/nouns.txt', function (data) {
+                words.nouns = data.split('\n');
+                doc.nNouns.text(words.nouns.length);
+                if (words.adjectives.length) {
+                    doc.nCombinations.text(words.adjectives.length * words.nouns.length);
+                    generate();
+                }
+            }, 'text');
+        </script>
+    </body>
+</html>
