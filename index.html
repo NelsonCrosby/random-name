@@ -78,6 +78,11 @@
             
             jQuery.get('words/adjectives.txt', function (data) {
                 words.adjectives = data.split('\n');
+                
+                if (words.adjectives[words.adjectives.length - 1] === '') {
+                    words.adjectives.splice(-1, 1);
+                }
+                
                 doc.nAdjectives.text(words.adjectives.length);
                 if (words.nouns.length) {
                     doc.nCombinations.text(words.adjectives.length * words.nouns.length);
@@ -87,6 +92,11 @@
             
             jQuery.get('words/nouns.txt', function (data) {
                 words.nouns = data.split('\n');
+
+                if (words.nouns[words.nouns.length - 1] === '') {
+                    words.nouns.splice(-1, 1);
+                }
+
                 doc.nNouns.text(words.nouns.length);
                 if (words.adjectives.length) {
                     doc.nCombinations.text(words.adjectives.length * words.nouns.length);
