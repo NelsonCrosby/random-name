@@ -9,8 +9,8 @@
                 background: #333;
             }
             
-            #content {
-                margin: auto;
+            #content, header {
+                margin: auto auto 10px;
                 max-width: 500px;
                 
                 background: #FF8800;
@@ -18,7 +18,7 @@
                 border-radius: 10px;
             }
             #content > div {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             
             #generator > span {
@@ -34,6 +34,10 @@
         </style>
     </head>
     <body>
+        <header>
+            {% include README.md %}
+        </header>
+        
         <div id="content">
             <div id="generator">
                 <span id="adj"></span><span id="sep">-</span><span id="noun"></span>

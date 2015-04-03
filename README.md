@@ -1,2 +1,3 @@
-# random-name
+# random-names
+
 Generate random adjective/noun names
