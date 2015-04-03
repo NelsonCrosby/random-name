@@ -851,7 +851,6 @@ talk
 tank
 taste
 tax
-teaching
 team
 teeth
 temper
@@ -968,7 +967,6 @@ wren
 wrench
 wrist
 writer
-writing
 yak
 yam
 yard
