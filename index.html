@@ -64,6 +64,20 @@
                 adjectives: [],
                 nouns: []
             };
+            
+            function getFromUrlHash() {
+                "use strict";
+                if (window.location.hash) {
+                    var name = window.location.hash.substring(1).split('-')
+                      , adjective = name[0]
+                      , noun = name[1];
+
+                    doc.adjective.text(adjective);
+                    doc.noun.text(noun);
+                } else {
+                    generate();
+                }
+            }
         
             function generate() {
                 "use strict";
@@ -71,8 +85,8 @@
                     var adjective = words.adjectives[Math.floor(Math.random() * words.adjectives.length)];
                     var noun = words.nouns[ Math.floor(Math.random() * words.nouns.length)];
                     
-                    doc.adjective.text(adjective);
-                    doc.noun.text(noun);
+                    window.location.hash = adjective + '-' + noun;
+                    getFromUrlHash();
                 }
             }
             
@@ -86,7 +100,7 @@
                 doc.nAdjectives.text(words.adjectives.length);
                 if (words.nouns.length) {
                     doc.nCombinations.text(words.adjectives.length * words.nouns.length);
-                    generate();
+                    getFromUrlHash();
                 }
             }, 'text');
             
@@ -100,7 +114,7 @@
                 doc.nNouns.text(words.nouns.length);
                 if (words.adjectives.length) {
                     doc.nCombinations.text(words.adjectives.length * words.nouns.length);
-                    generate();
+                    getFromUrlHash();
                 }
             }, 'text');
         </script>
