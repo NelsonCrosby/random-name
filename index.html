@@ -31,6 +31,11 @@
                 height: 35px;
                 font-size: 13px;
             }
+            
+            .hidden { display: none; }
+            #pre-generated {
+                font-style: italic;
+            }
         </style>
     </head>
     <body>
@@ -41,6 +46,7 @@
             </div>
             
             <div id="info">
+                <span id="pre-generated" class="hidden">This name was pre-filled from the URL (not randomly generated).<br/></span>
                 Adjectives: <span id="n-adjectives"></span><br/>
                 Nouns: <span id="n-nouns"></span><br/>
                 Possible combinations: <span id="n-combinations"></span>
@@ -56,6 +62,7 @@
                 
                 again: $('#again'),
                 
+                preGenerated: $('#pre-generated'),
                 nAdjectives: $('#n-adjectives'),
                 nNouns: $('#n-nouns'),
                 nCombinations: $('#n-combinations')
@@ -74,6 +81,7 @@
 
                     doc.adjective.text(adjective);
                     doc.noun.text(noun);
+                    doc.preGenerated.removeClass('hidden');
                 } else {
                     generate();
                 }
@@ -87,6 +95,7 @@
                     
                     window.location.hash = adjective + '-' + noun;
                     getFromUrlHash();
+                    doc.preGenerated.addClass('hidden');
                 }
             }
             
